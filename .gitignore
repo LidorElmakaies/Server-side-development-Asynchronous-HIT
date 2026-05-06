@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime / temp
+tmp/
+temp/
+.cache/
+coverage/
+dist/
+build/
+
+# Python cache (for test scripts)
+__pycache__/
+*.pyc
+
+# Local test outputs
+test-output*.txt
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
