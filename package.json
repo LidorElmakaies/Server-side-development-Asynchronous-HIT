@@ -4,9 +4,18 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "dev": "nodemon src/main.js",
-    "start": "node src/main.js",
-    "seed:user": "node src/seed-imaginary-user.js"
+    "dev:users": "nodemon src/processes/users.process.js",
+    "dev:costs": "nodemon src/processes/costs.process.js",
+    "dev:logs": "nodemon src/processes/logs.process.js",
+    "dev:adminLogsManager": "nodemon src/processes/logs.process.js",
+    "dev:about": "nodemon src/processes/about.process.js",
+    "start:users": "node src/processes/users.process.js",
+    "start:costs": "node src/processes/costs.process.js",
+    "start:logs": "node src/processes/logs.process.js",
+    "start:adminLogsManager": "node src/processes/logs.process.js",
+    "start:about": "node src/processes/about.process.js",
+    "seed:user": "node src/seed-imaginary-user.js",
+    "test:js": "jest --runInBand tests/endpointTestsInJS"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
@@ -16,6 +25,9 @@
     "pino-http": "^10.3.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "jest": "^30.3.0",
+    "mongodb-memory-server": "^11.1.0",
+    "nodemon": "^3.1.4",
+    "supertest": "^7.2.2"
   }
 }

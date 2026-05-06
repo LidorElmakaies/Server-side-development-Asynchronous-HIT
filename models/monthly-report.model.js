@@ -12,6 +12,21 @@ const monthlyReportSchema = new mongoose.Schema(
 
 monthlyReportSchema.index({ userid: 1, year: 1, month: 1 }, { unique: true });
 
+monthlyReportSchema.statics.findCachedReport = function findCachedReport(userid, year, month) {
+  return this.findOne(
+    { userid, year, month },
+    { _id: 0, userid: 1, year: 1, month: 1, costs: 1 }
+  ).lean();
+};
+
+monthlyReportSchema.statics.upsertReport = function upsertReport(userid, year, month, report) {
+  return this.findOneAndUpdate(
+    { userid, year, month },
+    report,
+    { upsert: true, new: true, setDefaultsOnInsert: true }
+  );
+};
+
 module.exports = mongoose.model(
   "MonthlyReport",
   monthlyReportSchema,

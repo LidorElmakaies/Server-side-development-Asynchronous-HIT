@@ -1,6 +1,7 @@
 const pino = require("pino");
 const pinoHttp = require("pino-http");
 const Log = require("../../models/log.model");
+const errors = require("./errors");
 
 class LoggingService {
   constructor() {
@@ -10,7 +11,7 @@ class LoggingService {
 
   async writeLog(log) {
     try {
-      await Log.create(log);
+      await Log.createLog(log);
     } catch (error) {
       this.logger.error(
         { err: error.message },
@@ -55,7 +56,7 @@ class LoggingService {
 
     const status = err.status || 500;
     const errorBody = {
-      id: err.id || "INTERNAL_ERROR",
+      id: err.id || errors.ids.INTERNAL_ERROR,
       message: err.message || "Unexpected error",
     };
 

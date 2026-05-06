@@ -1,7 +1,11 @@
-# Minimal Single-Server Backend (Start Version)
+# Minimal 4-Process Backend
 
-This is a simple starter implementation that runs as one Express server on one port.
-Routing is centralized in `src/server.js`, and each route delegates to a service in `src/services/`.
+This implementation runs as four separate Node processes (one port each), as required:
+
+- users process
+- costs process
+- logs process
+- about process
 
 ## Setup
 
@@ -13,10 +17,13 @@ Routing is centralized in `src/server.js`, and each route delegates to a service
 npm install
 ```
 
-## Run
+## Run processes
 
 ```bash
-npm run start
+npm run start:users
+npm run start:costs
+npm run start:logs
+npm run start:about
 ```
 
 ## Seed imaginary user

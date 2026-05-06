@@ -10,4 +10,31 @@ const userSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+userSchema.statics.listUsers = function listUsers() {
+  return this.find({}, { _id: 0 }).lean();
+};
+
+userSchema.statics.findByBusinessId = function findByBusinessId(id) {
+  return this.findOne({ id }).lean();
+};
+
+userSchema.statics.createUser = function createUser(payload) {
+  return this.create(payload);
+};
+
+userSchema.statics.ensureImaginaryUser = function ensureImaginaryUser() {
+  return this.updateOne(
+    { id: 123123 },
+    {
+      $setOnInsert: {
+        id: 123123,
+        first_name: "mosh",
+        last_name: "israeli",
+        birthday: new Date("1990-01-01")
+      }
+    },
+    { upsert: true }
+  );
+};
+
 module.exports = mongoose.model("User", userSchema, "users");

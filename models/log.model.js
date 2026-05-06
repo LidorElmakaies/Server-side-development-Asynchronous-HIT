@@ -13,4 +13,12 @@ const logSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+logSchema.statics.createLog = function createLog(payload) {
+  return this.create(payload);
+};
+
+logSchema.statics.listLogs = function listLogs() {
+  return this.find({}, { _id: 0 }).sort({ createdAt: -1 }).lean();
+};
+
 module.exports = mongoose.model("Log", logSchema, "logs");

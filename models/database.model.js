@@ -1,15 +1,19 @@
 const mongoose = require("mongoose");
 const pino = require("pino");
 
-class DatabaseService {
+class DatabaseModel {
   constructor() {
     this.logger = pino({ level: process.env.PINO_LEVEL || "info" });
   }
 
-  async connect(serviceName) {
+  async connect(serviceName = "unknown-service") {
     await mongoose.connect(process.env.MONGO_URI);
     this.logger.info({ service: serviceName }, "MongoDB connected");
   }
+
+  async disconnect() {
+    await mongoose.disconnect();
+  }
 }
 
-module.exports = new DatabaseService();
+module.exports = new DatabaseModel();

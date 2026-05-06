@@ -13,4 +13,20 @@ const costSchema = new mongoose.Schema(
   { versionKey: false },
 );
 
+costSchema.statics.createCost = function createCost(payload) {
+  return this.create(payload);
+};
+
+costSchema.statics.sumByUserId = async function sumByUserId(userid) {
+  const totals = await this.aggregate([
+    { $match: { userid } },
+    { $group: { _id: null, total: { $sum: "$sum" } } }
+  ]);
+  return totals[0] ? Number(totals[0].total) : 0;
+};
+
+costSchema.statics.findByUserAndDateRange = function findByUserAndDateRange(userid, from, to) {
+  return this.find({ userid, createdAt: { $gte: from, $lt: to } }).lean();
+};
+
 module.exports = mongoose.model("Cost", costSchema, "costs");

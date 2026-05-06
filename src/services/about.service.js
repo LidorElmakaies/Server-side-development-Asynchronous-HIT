@@ -1,4 +1,5 @@
 const logging = require("../core/logging");
+const SERVICE_NAME = process.env.SERVICE_NAME || "unknown-service";
 
 class AboutService {
   getTeamMembers() {
@@ -13,7 +14,7 @@ class AboutService {
   }
 
   async getAbout(req, res) {
-    await logging.endpointLog("main-server", "GET_ABOUT", req);
+    await logging.endpointLog(SERVICE_NAME, "GET_ABOUT", req);
     res.json(this.getTeamMembers());
   }
 }
